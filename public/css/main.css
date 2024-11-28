@@ -1,0 +1,200 @@
+body{
+    background: white;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-family: "Lato", sans-serif;
+    
+    }
+    .overlay{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 1100px;
+        min-height: 600px;
+        zoom: 0.9;
+    }
+    .container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 1000px;
+        height: 670px;
+        margin-top: 30px;
+        padding: 12px;
+        border-radius: 18px;
+        background-color: #0c1529f0;    
+        user-select: none;
+    }
+    .left-section{
+        color: #eee;
+        display: flex;
+        width: 50%;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        flex-direction: column;
+        flex: auto;
+        height: 100%;
+    }
+    .left-section-inside{
+        color: #eee;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-image: url("https://images.unsplash.com/photo-1553414701-7e7de9266721?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        background-size: cover;
+        background-color: #c4dfff93;
+        background-blend-mode: hard-light;
+        border-radius: 18px;
+        width: 100%;
+        flex: auto;
+    }
+    .left-section-top{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 32px;
+        width: 100%;
+        align-items: center;
+        box-sizing: border-box;
+    }
+    .logo{
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        height: 30px;
+    }
+    .logo img{
+        height: 100%;
+    }
+    .navigation-btn{
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        padding: 10px 14px;
+        background-color: #1a223529;
+        border-radius: 18px;
+        font-size: 0.8em;
+    }
+    .left-section-bottom{
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        color: white;
+        width: 100%;
+        padding: 32px 0;
+        font-size: 1.6em;
+        align-items: center;
+        justify-content: center;
+    }
+    .bottom-navigation{
+        display: flex;
+        flex-direction: column;
+    }
+    .description{
+        text-align: center;
+        font-weight: 400;
+        color: #eff6ff;
+    }
+    .navigation-container{
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+    }
+    .navigation-line{
+        padding: 3px 22px;
+        background-color: #ffffff54;
+        border-radius: 3px;
+    }
+    
+    .right-section{
+        color: #eee;
+        display: flex;
+        width: 50%;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        flex-direction: column;
+        flex: auto;
+    }
+    .form-section{
+        color: #eee;
+        display: flex;
+        width: 100%;
+        flex: auto;
+        flex-direction: column;
+        padding: 50px;
+        box-sizing: border-box;
+        gap: 36px;
+        font-size: 1.1em;
+    }
+    .form-top{
+        display: flex;
+        flex-direction: column;
+        font-size: 2.4em;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+    }
+    .form-header{
+        font-weight: bold;
+    }
+    .form-options{
+        font-size: 0.35em;
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+        color: #7997d8;
+    }
+    .form-options a{
+        color: #3869d1;
+    }
+    .form-bottom{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        font-size: 1.2em;
+        width: 100%;
+        color: white;
+    }
+    input{
+        padding: 14px;
+        border-radius: 4px;
+        background-color: #253454;
+        border: 0;
+        outline: 0;
+        text-indent: 6px;
+        font-size: 0.8em;
+        letter-spacing: 1px;
+        color: white;
+    }
+    input[type="submit"] {
+        padding: 12px;
+        border-radius: 4px;
+        background-color: #3869d1;
+        border: 0;
+        outline: 0;
+        text-indent: 6px;
+        color: white;
+        margin-top: 12px;
+        font-size: 0.8em;
+        cursor: pointer;
+    }
+    input::placeholder{color:#ddd}

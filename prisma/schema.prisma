@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model acc_files_safechat {
+  file_id                                                        Int                @id @default(autoincrement())
+  user_id                                                        Int?
+  name_file                                                      String?            @db.VarChar(200)
+  type_file                                                      String?            @db.VarChar(15)
+  route_file                                                     String?            @db.VarChar(260)
+  user_safechat_acc_files_safechat_user_idTouser_safechat        user_safechat?     @relation("acc_files_safechat_user_idTouser_safechat", fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "acc_files_safechat_ibfk_1")
+  channel_safechat                                               channel_safechat[]
+  user_safechat_user_safechat_avatar_file_idToacc_files_safechat user_safechat[]    @relation("user_safechat_avatar_file_idToacc_files_safechat")
+
+  @@index([user_id], map: "user_id")
+}
+
+model channel_files {
+  file_id                  Int                      @id @default(autoincrement())
+  channel_id               Int
+  member_id                Int
+  file_name                String                   @db.VarChar(255)
+  file_type                String                   @db.VarChar(12)
+  file_route               String                   @db.VarChar(255)
+  created_time             DateTime                 @default(now()) @db.Timestamp(0)
+  encrypt_check            Boolean?                 @default(false)
+  channel_safechat         channel_safechat         @relation(fields: [channel_id], references: [channel_id], onUpdate: Restrict, map: "channel_files_ibfk_1")
+  channels_member_safechat channels_member_safechat @relation(fields: [member_id], references: [member_id], onUpdate: Restrict, map: "channel_files_ibfk_2")
+
+  @@index([channel_id], map: "channel_files_ibfk_1")
+  @@index([member_id], map: "channel_files_ibfk_2")
+}
+
+model channel_safechat {
+  channel_id               Int                        @id @default(autoincrement())
+  owner_id                 Int
+  channel_name             String                     @db.VarChar(32)
+  channel_bio              String                     @db.VarChar(200)
+  icon_id                  Int
+  created_time             DateTime                   @default(now()) @db.Timestamp(0)
+  acess_key                String                     @db.VarChar(255)
+  channel_files            channel_files[]
+  user_safechat            user_safechat              @relation(fields: [owner_id], references: [user_id], onUpdate: Restrict, map: "channel_safechat_ibfk_1")
+  acc_files_safechat       acc_files_safechat         @relation(fields: [icon_id], references: [file_id], onUpdate: Restrict, map: "channel_safechat_ibfk_2")
+  channels_member_safechat channels_member_safechat[]
+  messages_safechat        messages_safechat[]
+
+  @@index([owner_id], map: "channel_safechat_ibfk_1")
+  @@index([icon_id], map: "icon_id")
+}
+
+model channels_member_safechat {
+  member_id         Int                 @id @default(autoincrement())
+  user_id           Int
+  channel_id        Int
+  member_role       Int?
+  join_time         DateTime            @default(now()) @db.Timestamp(0)
+  channel_files     channel_files[]
+  user_safechat     user_safechat       @relation(fields: [user_id], references: [user_id], onUpdate: Restrict, map: "channels_member_safechat_ibfk_1")
+  channel_safechat  channel_safechat    @relation(fields: [channel_id], references: [channel_id], onUpdate: Restrict, map: "channels_member_safechat_ibfk_2")
+  messages_safechat messages_safechat[]
+
+  @@index([channel_id], map: "channel_id")
+  @@index([user_id], map: "user_id")
+}
+
+model messages_safechat {
+  message_id               Int                      @id @default(autoincrement())
+  channel_id               Int
+  member_id                Int
+  content                  String                   @db.Text
+  is_file                  Boolean?                 @default(false)
+  sent_time                DateTime                 @default(now()) @db.Timestamp(0)
+  channel_safechat         channel_safechat         @relation(fields: [channel_id], references: [channel_id], onUpdate: Restrict, map: "messages_safechat_ibfk_1")
+  channels_member_safechat channels_member_safechat @relation(fields: [member_id], references: [member_id], onUpdate: Restrict, map: "messages_safechat_ibfk_2")
+
+  @@index([channel_id], map: "messages_safechat_ibfk_1")
+  @@index([member_id], map: "messages_safechat_ibfk_2")
+}
+
+model user_safechat {
+  user_id                                                             Int                        @id @default(autoincrement())
+  email                                                               String                     @db.VarChar(50)
+  nickname                                                            String                     @db.VarChar(30)
+  pass                                                                String?                    @db.VarChar(255)
+  avatar_file_id                                                      Int?
+  acc_files_safechat_acc_files_safechat_user_idTouser_safechat        acc_files_safechat[]       @relation("acc_files_safechat_user_idTouser_safechat")
+  channel_safechat                                                    channel_safechat[]
+  channels_member_safechat                                            channels_member_safechat[]
+  acc_files_safechat_user_safechat_avatar_file_idToacc_files_safechat acc_files_safechat?        @relation("user_safechat_avatar_file_idToacc_files_safechat", fields: [avatar_file_id], references: [file_id], onDelete: Restrict, onUpdate: Restrict, map: "user_safechat_ibfk_1")
+
+  @@index([avatar_file_id], map: "avatar_file_id")
+}
