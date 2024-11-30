@@ -2,6 +2,8 @@ const express = require("express");
 const dotenv=require("dotenv");
 const path=require("path");
 const socketio=require("socket.io");
+const auth=require("./controllers/register");
+
 
 
 
@@ -15,6 +17,8 @@ const app=express();
 
 app.use(express.static(publiccatalogspath));
 app.use(express.json());
+
+app.post("/register",auth.register);
 
 app.get("/registration",(req,res)=>{
     const filepath=path.join(publiccatalogspath,"/pages/auth/registration.html");

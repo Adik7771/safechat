@@ -20,7 +20,7 @@ body{
         width: 100%;
         max-width: 1100px;
         min-height: 600px;
-        zoom: 0.9;
+        zoom: 0.75;
     }
     .container{
         display: flex;
@@ -33,7 +33,7 @@ body{
         margin-top: 30px;
         padding: 12px;
         border-radius: 18px;
-        background-color: #0c1529f0;    
+        background-color: #182647f0;    
         user-select: none;
     }
     .left-section{
@@ -73,7 +73,7 @@ body{
         display: flex;
         align-items: center;
         overflow: hidden;
-        height: 30px;
+        height: 35px;
     }
     .logo img{
         height: 100%;
@@ -82,10 +82,10 @@ body{
         display: flex;
         flex-direction: row;
         gap: 8px;
-        padding: 10px 14px;
+        padding: 8px 12px;
         background-color: #1a223529;
         border-radius: 18px;
-        font-size: 0.8em;
+        font-size: 0.65em;
     }
     .left-section-bottom{
         display: flex;
@@ -177,7 +177,7 @@ body{
     input{
         padding: 14px;
         border-radius: 4px;
-        background-color: #253454;
+        background-color: #324166;
         border: 0;
         outline: 0;
         text-indent: 6px;

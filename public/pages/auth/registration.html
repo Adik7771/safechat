@@ -66,5 +66,65 @@
             </div>
         </div>
    </div>
+   <script type="text/javascript">
+        document.querySelector("form").addEventListener("submit",async(e)=>{
+            e.preventDefault();
+            let nickname=document.querySelector("input[name=nickname]").value,
+            email=document.querySelector("input[name=email]").value,password=document.querySelector("input[name=password]").value;
+
+
+            let errors = [];
+
+            // Validate nickname
+            if (nickname.length < 3 || nickname.length > 20) {
+                errors.push("Nickname musi mieć od 3 do 20 znaków.");
+            }
+
+            // Validate email using a regex pattern
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                errors.push("Podaj poprawny adres email.");
+            }
+
+            // Validate password
+            if (password.length < 8) {
+                errors.push("Hasło musi mieć co najmniej 8 znaków.");
+            }
+
+            // Display errors or success message
+            if (errors.length > 0) {
+                document.querySelector(".form-result").innerHTML = `<ul style="color: red;">${errors.map(error => `<li>${error}</li>`).join('')}</ul>`;
+            } else {
+                document.querySelector(".form-result").innerHTML = `<p style="color: green;">Rejestracja zakończona sukcesem!</p>`;
+            }
+
+            try{
+                const response=await fetch("/register",{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify({
+                        nickname:nickname,
+                        email:email,
+                        password:password
+
+                    })
+                
+                });
+                const data=await response.JSON();
+                if(response.ok){
+                    document.querySelector(".form-result").innerHTML="Zarejestrowano pomyślnie";
+                    //window.location.href="/login";
+                }
+                else{
+                    document.querySelector(".form-result").innerHTML=response.message;
+                }
+            }
+            catch(error){
+                console.log(`Wystapil blad: ${error}`);
+            }
+        })
+   </script>
 </body>
 </html>
