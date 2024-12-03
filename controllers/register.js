@@ -7,10 +7,8 @@ const prisma = new PrismaClient();
 exports.register=async (req, res) => {
     const { nickname, email, password } = req.body;
 
-    if (!nickname || !email || !password) {
-        return res.status(400).json({ message: 'Wszystkie pola są wymagane!' });
-    }
-
+    if (!nickname || !email || !password) return res.status(400).json({ message: 'Wszystkie pola są wymagane!' });
+    if (nickname=="" || email=="" || password=="") return res.status(400).json({message:"Pola nie mogą być puste"});    
     try {
         // Sprawdzenie, czy email lub nickname już istnieje
         const existingUser = await prisma.user_safechat.findFirst({
@@ -38,7 +36,7 @@ exports.register=async (req, res) => {
             }
         });
 
-        return res.status(201).json({ message: 'Konto zostało utworzone!', user: newUser });
+        return res.status(200).json({ message: 'Konto zostało utworzone!'});
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Wystąpił błąd podczas rejestracji.' });

@@ -197,4 +197,13 @@ body{
         font-size: 0.8em;
         cursor: pointer;
     }
+    .form-result{
+        padding: 12px 0;
+    }
+    .form-result.success{
+        color: #4ea94e;
+    }
+    .form-result.error{
+        color: #ff6666;
+    }
     input::placeholder{color:#ddd}

@@ -50,7 +50,7 @@
                     
                         <div class="form-bottom">
                             <form>
-                                <input type="text" placeholder="Nickname" name="nickname">
+                                <input type="text" placeholder="Nickname" name="nickname" maxlength="20" minlength="3">
                                 <input type="email" placeholder="Email" name="email">
                                 <input type="password" placeholder="Password" name="password">
                                 <input type="submit" value="Utwórz konto">
@@ -94,8 +94,6 @@
             // Display errors or success message
             if (errors.length > 0) {
                 document.querySelector(".form-result").innerHTML = `<ul style="color: red;">${errors.map(error => `<li>${error}</li>`).join('')}</ul>`;
-            } else {
-                document.querySelector(".form-result").innerHTML = `<p style="color: green;">Rejestracja zakończona sukcesem!</p>`;
             }
 
             try{
@@ -112,13 +110,18 @@
                     })
                 
                 });
-                const data=await response.JSON();
+                const data=await response.json();
+                const formresult=document.querySelector(".form-result");
                 if(response.ok){
-                    document.querySelector(".form-result").innerHTML="Zarejestrowano pomyślnie";
+                    if(formresult.classList.contains("error"))formresult.classList.remove("error");
+                    if(!formresult.classList.contains("success"))formresult.classList.add("success");
+                    formresult.innerHTML=data.message;
                     //window.location.href="/login";
                 }
                 else{
-                    document.querySelector(".form-result").innerHTML=response.message;
+                    if(!formresult.classList.contains("error"))formresult.classList.add("error");
+                    if(formresult.classList.contains("success"))formresult.classList.remove("success");
+                    document.querySelector(".form-result").innerHTML=data.message;
                 }
             }
             catch(error){

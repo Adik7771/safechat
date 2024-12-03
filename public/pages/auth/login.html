@@ -65,5 +65,55 @@
             </div>
         </div>
    </div>
+   <script type="text/javascript">
+    document.querySelector("form").addEventListener("submit",async(e)=>{
+        e.preventDefault();
+        let email=document.querySelector("input[name=email]").value,password=document.querySelector("input[name=password]").value;
+        let errors = [];
+        // Validate email using a regex pattern
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email)) {
+            errors.push("Podaj poprawny adres email.");
+        }
+
+        // Validate password
+        if (password.length < 8) {
+            errors.push("Hasło musi mieć co najmniej 8 znaków.");
+        }
+
+        // Display errors or success message
+        if (errors.length > 0) {
+            document.querySelector(".form-result").innerHTML = `<ul style="color: red;">${errors.map(error => `<li>${error}</li>`).join('')}</ul>`;
+        }
+
+        try{
+            const response=await fetch("/login",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    email:email,
+                    password:password
+
+                })
+            
+            });
+            const data=await response.json();
+            const formresult=document.querySelector(".form-result");
+            if(response.ok){
+                localStorage.setItem("token",data.token);
+                window.location.href="/dashboard";
+            }
+            else{
+                if(!formresult.classList.contains("error"))formresult.classList.add("error");
+                document.querySelector(".form-result").innerHTML=data.message;
+            }
+        }
+        catch(error){
+            console.log(`Wystapil blad: ${error}`);
+        }
+    })
+    </script>
 </body>
 </html>
